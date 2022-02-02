@@ -1,6 +1,8 @@
 import org.openrndr.Fullscreen
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
+import org.openrndr.draw.ShadeStyle
+import org.openrndr.draw.shadeStyle
 import org.openrndr.extra.noise.random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
@@ -52,6 +54,10 @@ fun main() = application {
         }.toList()
 
         extend {
+
+            shadeStyle {
+
+            }
 
             fun drawYingYang(xc: Double, yc: Double, rad: Double, rate: Double) {
                 val half = compound {
