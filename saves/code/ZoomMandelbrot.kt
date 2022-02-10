@@ -47,7 +47,7 @@ fun mandelValue(cx: BigFloat, cy: BigFloat): BigFloat {
 var centerY: BigFloat = numContext.ZERO
 var centerX: BigFloat = numContext.valueOf(-0.67)
 
-// px_X * scale = math_X
+// px_X * getScale = math_X
 var scale: BigFloat = numContext.valueOf(2.0 / 300.0)
 
 fun scaleConverter(i: Int, j: Int, w: Int, h: Int): Pair<BigFloat, BigFloat> {
@@ -113,7 +113,7 @@ fun main() = application {
 
             val (ny, nx) = scaleConverter(i, j, width, height)
 //            println("click at $i $j")
-//            println("center at $centerY $centerX")
+//            println("center at $getCenterY $getCenterX")
 //            println("calcs are ${height / 2.0 - i} ${j - width / 2.0}")
             println("new center at $ny $nx")
             scale /= 15.0
