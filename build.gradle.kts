@@ -7,7 +7,7 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 group = "org.openrndr.template"
 version = "0.3.18"
 
-val applicationMainClass = "TemplateProgramKt"
+val applicationMainClass = "ZoomMandelbrotKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
@@ -125,9 +125,14 @@ val kotlinVersion = "1.5.0"
 
 plugins {
     java
+    application
     kotlin("jvm") version("1.5.0")
     id("com.github.johnrengelman.shadow") version ("6.1.0")
     id("org.beryx.runtime") version ("1.11.4")
+}
+
+application {
+    mainClass.set("ZoomMandelbrotKt")
 }
 
 repositories {
@@ -296,3 +301,23 @@ runtime {
     modules.add("jdk.unsupported")
     modules.add("java.management")
 }
+
+// my stuff
+
+tasks {
+    val fatJar = register<Jar>("fatJar") {
+        dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
+        archiveClassifier.set("standalone") // Naming the jar
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        manifest { attributes(mapOf("Main-Class" to application.mainClass)) } // Provided we set it up in the application plugin configuration
+        val sourcesMain = sourceSets.main.get()
+        val contents = configurations.runtimeClasspath.get()
+            .map { if (it.isDirectory) it else zipTree(it) } +
+                sourcesMain.output
+        from(contents)
+    }
+    build {
+        dependsOn(fatJar) // Trigger fat jar creation during build
+    }
+}
+
