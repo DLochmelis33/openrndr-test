@@ -20,13 +20,13 @@ fun main() = application {
         //   / ё \
         //  /_____\
 
-        val img = loadImage("images/a.png")
+        val img = loadImage("images/b.png")
         val imgw: Double = img.width.toDouble()
         val cos30: Double = sqrt(3.0) / 2.0
         val sin30 = 0.5
 
         extend {
-            val cropped = img.crop(IntRectangle(0, (30 * seconds).toInt(), imgw.toInt(), (imgw * cos30).toInt()))
+            val cropped = img.crop(IntRectangle(0, (40 * seconds).toInt(), imgw.toInt(), (imgw * cos30).toInt()))
 
             val shs1 = shadeStyle {
                 fragmentTransform = """
@@ -58,8 +58,7 @@ fun main() = application {
             drawer.translate(
                 width / 2.0, height / 2.0
             )
-            drawer.fill = ColorRGBa.WHITE
-            drawer.circle(0.0, 0.0, 10.0)
+            drawer.strokeWeight = 0.05
 
             for (a in -5..5) {
                 for (b in -5..5) {
