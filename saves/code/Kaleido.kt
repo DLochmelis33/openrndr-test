@@ -1,4 +1,5 @@
 import org.openrndr.Fullscreen
+import org.openrndr.MouseCursorHideMode
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.loadImage
@@ -13,6 +14,7 @@ fun main() = application {
         width = 1920
         height = 1080
         fullscreen = Fullscreen.SET_DISPLAY_MODE
+        cursorHideMode = MouseCursorHideMode.HIDE
     }
     program {
         // acceptable image:
@@ -20,7 +22,7 @@ fun main() = application {
         //   / ё \
         //  /_____\
 
-        val img = loadImage("images/b.png")
+        val img = loadImage("images/b_smol.png")
         val imgw: Double = img.width.toDouble()
         val cos30: Double = sqrt(3.0) / 2.0
         val sin30 = 0.5
@@ -60,7 +62,7 @@ fun main() = application {
             )
             drawer.strokeWeight = 0.05
 
-            for (a in -5..5) {
+            for (a in -10..10) {
                 for (b in -5..5) {
 
                     val tvec = Vector2(

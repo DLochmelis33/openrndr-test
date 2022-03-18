@@ -4,10 +4,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 /* the name of this project, default is the template version but you are free to change these */
-group = "org.openrndr.template"
-version = "0.3.18"
+group = "ru.hse.DLochmelis33"
+version = "3.3.3"
 
-val applicationMainClass = "ZoomMandelbrotKt"
+val applicationMainClass = "KaleidoKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
@@ -132,7 +132,7 @@ plugins {
 }
 
 application {
-    mainClass.set("ZoomMandelbrotKt")
+    mainClass.set(applicationMainClass)
 }
 
 repositories {
