@@ -54,7 +54,7 @@ fun plot(
         height = 300
     }
     program {
-        val rp = RealPx(xc = xc, yc = yc, whGetter = { Pair(width, height) }, scale = scale)
+        val rp = RealPx(width, height, xc, yc, scale)
         val exec = Executors.newFixedThreadPool(12)
 
         val mimg = ImageWrapper(width, height)
