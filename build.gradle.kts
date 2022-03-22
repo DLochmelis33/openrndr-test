@@ -169,7 +169,8 @@ dependencies {
     implementation("ch.obermuhlner:big-math:2.3.0")
     implementation("ch.obermuhlner:kotlin-big-math:2.3.0")
 
-    implementation("org.jgrapht:jgrapht:1.5.1")
+//    implementation("org.jgrapht:jgrapht:1.5.1")
+    implementation("org.apache.commons:commons-math3:3.6.1")
 
 //    implementation("org.jsoup:jsoup:1.12.2")
 //    implementation("com.google.code.gson:gson:2.8.6")
