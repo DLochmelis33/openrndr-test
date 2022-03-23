@@ -5,9 +5,9 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 /* the name of this project, default is the template version but you are free to change these */
 group = "ru.hse.DLochmelis33"
-version = "3.3.3"
+version = "0.0.0"
 
-val applicationMainClass = "KaleidoKt"
+val applicationMainClass = "LevelFieldKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
@@ -121,12 +121,12 @@ enum class Logging {
 /*  What type of logging should this project use? */
 val applicationLogging = Logging.FULL
 
-val kotlinVersion = "1.5.0"
+val kotlinVersion = "1.6.0"
 
 plugins {
     java
     application
-    kotlin("jvm") version("1.5.0")
+    kotlin("jvm") version("1.6.0")
     id("com.github.johnrengelman.shadow") version ("6.1.0")
     id("org.beryx.runtime") version ("1.11.4")
 }
@@ -196,11 +196,13 @@ dependencies {
             runtimeOnly("org.slf4j","slf4j-simple","1.7.30")
         }
         Logging.FULL -> {
-            runtimeOnly("org.apache.logging.log4j", "log4j-slf4j-impl", "2.17.0")
+            implementation("org.apache.logging.log4j", "log4j-slf4j-impl", "2.17.0")
             runtimeOnly("com.fasterxml.jackson.core", "jackson-databind", "2.11.1")
             runtimeOnly("com.fasterxml.jackson.dataformat", "jackson-dataformat-yaml", "2.11.1")
         }
     }
+
+    implementation("org.slf4j", "slf4j-simple", "1.6.4") // my addition
 
     if ("video" in openrndrFeatures) {
         implementation(openrndr("ffmpeg"))
@@ -248,7 +250,7 @@ tasks {
             attributes["Main-Class"] = applicationMainClass
         }
         minimize {
-            exclude(dependency("org.openrndr:openrndr-gl3:.*"))
+//            exclude(dependency("org.openrndr:openrndr-gl3:.*"))
             exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:.*"))
         }
     }
@@ -282,7 +284,7 @@ tasks.register<Zip>("jpackageZip") {
         include("**/*")
     }
 }
-tasks.findByName("jpackageZip")?.dependsOn("jpackage")
+tasks.findByName("jpackageZipckageZip")?.dependsOn("jpackage")
 
 runtime {
     jpackage {
@@ -305,6 +307,12 @@ runtime {
 
 // my stuff
 
+//tasks {
+//    named<ShadowJar>("shadowJar") {
+//        configurations = listOf(project.configurations.runtimeClasspath.get())
+//    }
+//}
+
 tasks {
     val fatJar = register<Jar>("fatJar") {
         dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
@@ -321,4 +329,3 @@ tasks {
         dependsOn(fatJar) // Trigger fat jar creation during build
     }
 }
-
